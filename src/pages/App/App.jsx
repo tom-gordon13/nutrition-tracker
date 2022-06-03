@@ -6,6 +6,7 @@ import NewOrderPage from '../NewOrderPage/NewOrderPage';
 import OrderHistoryPage from "../OrderHistoryPage/OrderHistoryPage"
 import AuthPage from '../AuthPage/AuthPage';
 import NavBar from '../../components/NavBar/NavBar';
+import FoodTestPage from './FoodTestPage/FoodTestPage';
 
 
 
@@ -21,6 +22,7 @@ function App() {
       {/*  Route components in here */}
       <Route path="orders/new" element={<NewOrderPage />} />
       <Route path="orders" element={<OrderHistoryPage />} />
+      <Route path="food" element={<FoodTestPage />} />
       {}
     </Routes>
     </>

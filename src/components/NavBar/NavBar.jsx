@@ -15,6 +15,8 @@ export default function NavBar({ user, setUser }) {
             <Link to="/orders">Order History</Link>
             &nbsp; &nbsp;| &nbsp;&nbsp;
             <Link to="/orders/new">New Order</Link>
+            &nbsp; &nbsp;| &nbsp;&nbsp;
+            <Link to="/food">Food Test</Link>
             &nbsp;&nbsp;
             <span>Hi {user.name}</span>
             &nbsp;&nbsp;
