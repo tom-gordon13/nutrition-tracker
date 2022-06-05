@@ -21,8 +21,6 @@ function App() {
     <NavBar user={user}/>
     <Routes>
       {/*  Route components in here */}
-      
-      
       <Route path="" element={<DayViewPage />} />
       
       {}

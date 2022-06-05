@@ -18,6 +18,14 @@ const userSchema = new Schema({
         trim: true,
         minLength: 3,
         required: true
+    }, 
+    height: {
+        type: Number,
+        required: false
+    }, 
+    weight: {
+        type: Number,
+        required: false
     }
 } , {
         timestamps: true,

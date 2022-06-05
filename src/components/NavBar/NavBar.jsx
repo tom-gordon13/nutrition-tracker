@@ -13,8 +13,7 @@ export default function NavBar({ user, setUser }) {
     return (
         <nav>
             
-            <Link to="/food">Food Test</Link>
-            &nbsp;&nbsp;
+            
             <Link to="/">Day View</Link>
             &nbsp;&nbsp;
             {/* <Link to="/food/new">Food Test NEW</Link> */}

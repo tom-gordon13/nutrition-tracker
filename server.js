@@ -22,6 +22,9 @@ app.use(require('./config/checkToken'))
 
 // Put all API routes here (before the catch-all)
 app.use('/api/users', require('./routes/api/users'));
+app.use('/api/food-items', ensureLoggedIn, require('./routes/api/foodItems'));
+
+const ensureLoggedIn = require('./config/ensureLoggedIn');
 
 
 // Catch-all route that will match al GET requests that don't match an 

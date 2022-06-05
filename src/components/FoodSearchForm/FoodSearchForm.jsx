@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
-// import FoodTestCardNutrients from './FoodTestCardNutrients'
-// import FoodTestDisplay from './FoodTestDisplay'
-// import "./FoodTestPage.css"
+import * as searchToDB from '../../utilities/search-to-db'
 
-export default function FoodSearchForm({ setFood, setDisplayFoods }) {
+export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFoodItem }) {
     
     const [foodSearch, setFoodSearch] = useState('')
+    
+    
+
     
     
     function handleFoodSearch(evt) {
@@ -15,6 +16,15 @@ export default function FoodSearchForm({ setFood, setDisplayFoods }) {
             const food = await res.json()
             setFood(food)
             let newArr = food.foods.slice(0,5)
+            
+            for (let food of newArr) {
+                let newItem = ({
+                    itemName: food.description,
+                    fdcId: food.fdcId,
+                    servingSize: `${food.servingSize}${food.servingSizeUnit}`
+                })
+                handleNewFoodItem(newItem);
+            }
             setDisplayFoods(newArr)
             return food
         }
