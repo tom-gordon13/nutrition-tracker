@@ -14,17 +14,17 @@ app.use(logger('dev'));
 // Process data in body of request if
 // content-type: 'application/json'
 app.use(express.json());
-app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
+// app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname, 'build')));
 
 // Middleware that adds the user object to req.user
 app.use(require('./config/checkToken'))
 
+const ensureLoggedIn = require('./config/ensureLoggedIn');
 // Put all API routes here (before the catch-all)
 app.use('/api/users', require('./routes/api/users'));
-app.use('/api/food-items', ensureLoggedIn, require('./routes/api/foodItems'));
+app.use('/api/foodItem', ensureLoggedIn, require('./routes/api/foodItem'));
 
-const ensureLoggedIn = require('./config/ensureLoggedIn');
 
 
 // Catch-all route that will match al GET requests that don't match an 

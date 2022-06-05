@@ -4,6 +4,6 @@ const foodItemCtrl = require('../../controllers/api/foodItem');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // POST /api/posts
-router.post('/', foodItemCtrl.create)
+router.post('/add-item', foodItemCtrl.createFoodItem)
 
 module.exports = router

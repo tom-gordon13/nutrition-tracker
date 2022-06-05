@@ -6,7 +6,12 @@ module.exports = {
 
 async function createFoodItem(req, res) {
     req.body.user = req.user._id
-    console.log('hi')
-    console.log(req.body)
-    // const newFoodItem = await FoodItem.create(req.body);
+    let newItem = ({
+        itemName: req.body.itemName,
+        fdcId: req.body.fdcId,
+        servingSize: `${req.body.servingSize}${req.body.servingSizeUnit}`
+    })
+    
+    const newFoodItem = await FoodItem.create(newItem);
+    res.json(newFoodItem)
 }

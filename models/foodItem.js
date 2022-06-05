@@ -12,7 +12,7 @@ const foodItemSchema = new Schema({
     },
     servingSize: {
         type: String,
-        required: true
+        required: false
     }
 })
 
