@@ -12,6 +12,9 @@ async function createFoodItem(req, res) {
         servingSize: `${req.body.servingSize}${req.body.servingSizeUnit}`
     })
     
-    const newFoodItem = await FoodItem.create(newItem);
-    res.json(newFoodItem)
+    let foodMatch = await FoodItem.find({'fdcId': req.body.fdcId}).exec();
+    if (foodMatch.length === 0) {
+        const newFoodItem = await FoodItem.create(newItem);
+        res.json(newFoodItem)
+    }
 }
