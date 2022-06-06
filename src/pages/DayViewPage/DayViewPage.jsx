@@ -7,6 +7,7 @@ import * as foodItemsAPI from '../../utilities/foodItems-api'
 import * as foodBucketsAPI from '../../utilities/foodBuckets-api'
 import { useDrop, useDrag } from 'react-dnd'
 import FoodBucketLineItem from '../../components/FoodBucket/FoodBucketLineItem'
+import DishDisplay from '../../components/DishDisplay/DishDisplay'
 
 
 export default function DayViewPage() {
@@ -30,17 +31,29 @@ export default function DayViewPage() {
     }
 
     useEffect(function() {
-        console.log(currBucket.date === falseDate)
+        
+
         async function createFoodBucket() {
             if (currBucket.date.getYear === falseDate.getYear) {
                 
-                let bucket = await foodBucketsAPI.createFoodBucket()
-                setCurrBucket(bucket)
+                let bucket = await foodBucketsAPI.createFoodBucket();
+                setCurrBucket(bucket);
             }
+        }
+
+        async function addItemToBucket() {
+            
+            let tempItem = await bucketItems[bucketItems.length - 1]
+           
+            let lineItem = await foodBucketsAPI.addItemToBucket(tempItem);
+            
         }
         
         createFoodBucket();
+        addItemToBucket();
     }, [bucketItems])
+
+
 
     const [{ isOver }, dropRef] = useDrop({
         accept: 'foodItem',
@@ -55,7 +68,7 @@ export default function DayViewPage() {
             <div className="row">
 
                 <div className="row">
-                    {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY */}
+                    {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY & DISHES DISPLAY*/}
                     <div className="col-3">
 
                         <FoodSearchForm
@@ -72,6 +85,9 @@ export default function DayViewPage() {
                             <button>Next</button>
                         </div>
 
+                        <hr />
+                        
+                        <DishDisplay />
                     </div>
 
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}

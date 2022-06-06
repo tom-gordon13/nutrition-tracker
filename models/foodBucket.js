@@ -3,18 +3,22 @@ const Schema = mongoose.Schema
 const foodItemSchema = require('./foodItem')
 
 const itemsEatenSchema = new Schema ({
-    // foodItem: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'FoodItem',
-    //     required: true
-    // }
+    itemName: {
+        type: String,
+        required: true
+    },
+    fdcId: {
+        type: Number,
+        required: true
+    },
     qty: {
         type: Number,
         default: 1
     },
     meal: {
         type: String,
-        enum: ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
+        enum: ['Breakfast', 'Lunch', 'Dinner', 'Snacks'],
+        default: 'Breakfast'
     },
     // dish: {
     //     type: Schema.Types.ObjectId,
@@ -28,8 +32,8 @@ const itemsEatenSchema = new Schema ({
 
 const foodBucketSchema = new Schema({
     date: {
-        type: Date,
-        default: new Date(),
+        type: String,
+        default: new Date().toISOString().split('T')[0],
         required: true
     }, 
     user: {
@@ -45,11 +49,15 @@ const foodBucketSchema = new Schema({
 
 
 // INSTANCE METHODS
-foodBucketSchema.methods.addItemToBucket = async function(itemId) {
+foodBucketSchema.methods.addItemToBucket = async function(item) {
+    console.log('hi')
     // set 'bucket' variable to current bucket object
     const bucket = this;
 
-    // const newFoodItem 
+    bucket.itemsEaten.push( item ) 
+    console.log(`Item - ${item}`)
+    console.log(`Bucket - ${bucket}`)
+    return bucket.save();
 }
 
 

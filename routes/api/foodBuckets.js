@@ -5,6 +5,7 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 // POST /api/posts
 router.post('/addBucket', foodBucketCtrl.createNewBucket)
+router.post('/addLineItem', foodBucketCtrl.addLineItem)
 
 module.exports = router
 
