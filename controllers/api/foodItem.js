@@ -5,6 +5,7 @@ module.exports = {
 }
 
 async function createFoodItem(req, res) {
+    
     req.body.user = req.user._id
     let newItem = ({
         itemName: req.body.itemName,

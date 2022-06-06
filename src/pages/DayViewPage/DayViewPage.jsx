@@ -4,22 +4,43 @@ import FoodSearchDisplay from '../../components/FoodSearchDisplay/FoodSearchDisp
 import Placeholder from '../../components/Placeholder'
 import FoodBucketHeader from '../../components/FoodBucket/FoodBucketHeader'
 import * as foodItemsAPI from '../../utilities/foodItems-api'
+import * as foodBucketsAPI from '../../utilities/foodBuckets-api'
 import { useDrop, useDrag } from 'react-dnd'
 import FoodBucketLineItem from '../../components/FoodBucket/FoodBucketLineItem'
 
 
 export default function DayViewPage() {
+    let falseDate = new Date('2000-1-1')
+    
+    let emptyBucket = {
+        date: new Date('2000-1-1'),
+        // user: 
+        itemsEaten: []
+    }
+    
     const [food, setFood] = useState({})
 
     const [displayFoods, setDisplayFoods] = useState([])
     const [currentMeal, setCurrentMeal] = useState('Breakfast')
     const [bucketItems, setBucketItems] = useState([])
-    
+    const [currBucket, setCurrBucket] = useState(emptyBucket)
+
     async function handleNewFoodItem(foodItem) {
         const food = await foodItemsAPI.addFoodItem(foodItem)
     }
 
-
+    useEffect(function() {
+        console.log(currBucket.date === falseDate)
+        async function createFoodBucket() {
+            if (currBucket.date.getYear === falseDate.getYear) {
+                
+                let bucket = await foodBucketsAPI.createFoodBucket()
+                setCurrBucket(bucket)
+            }
+        }
+        
+        createFoodBucket();
+    }, [bucketItems])
 
     const [{ isOver }, dropRef] = useDrop({
         accept: 'foodItem',

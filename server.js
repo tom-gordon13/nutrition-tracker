@@ -24,6 +24,9 @@ const ensureLoggedIn = require('./config/ensureLoggedIn');
 // Put all API routes here (before the catch-all)
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/foodItem', ensureLoggedIn, require('./routes/api/foodItem'));
+app.use('/api/foodBucket', ensureLoggedIn, require('./routes/api/foodBuckets'))
+
+
 
 
 

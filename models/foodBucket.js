@@ -3,7 +3,11 @@ const Schema = mongoose.Schema
 const foodItemSchema = require('./foodItem')
 
 const itemsEatenSchema = new Schema ({
-    foodItem: foodItemSchema,
+    // foodItem: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'FoodItem',
+    //     required: true
+    // }
     qty: {
         type: Number,
         default: 1
@@ -41,7 +45,7 @@ const foodBucketSchema = new Schema({
 
 
 // INSTANCE METHODS
-foodBucketSchema.methods.addItemtToBucket = async function(itemId) {
+foodBucketSchema.methods.addItemToBucket = async function(itemId) {
     // set 'bucket' variable to current bucket object
     const bucket = this;
 
