@@ -42,10 +42,8 @@ export default function DayViewPage() {
         }
 
         async function addItemToBucket() {
-            
             let tempItem = await bucketItems[bucketItems.length - 1]
-           
-            let lineItem = await foodBucketsAPI.addItemToBucket(tempItem);
+            let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal);
             
         }
         

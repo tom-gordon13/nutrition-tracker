@@ -8,7 +8,7 @@ export function createFoodBucket(){
 }
 
 
-export function addItemToBucket(lineItem) {
-    return sendRequest(`${BASE_URL}/addLineItem`, 'POST', {lineItem})
+export function addItemToBucket(lineItem, currentMeal) {
+    return sendRequest(`${BASE_URL}/addLineItem`, 'POST', {lineItem, currentMeal})
 }
 

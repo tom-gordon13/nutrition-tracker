@@ -25,18 +25,25 @@ async function createNewBucket(req, res) {
 
 async function addLineItem(req, res) {
     
-    
-    let newFoodItem = {
-        itemName: req.body.lineItem.itemName,
-        fdcId: req.body.lineItem.fdcId,
-    }
-    
     let currBucket = await FoodBucket.findOne({ user: req.user._id}).exec();
+    
+    if (req.body.lineItem) {
+        let newFoodItem = {
+            itemName: req.body.lineItem.itemName,
+            fdcId: req.body.lineItem.fdcId,
+            meal: req.body.currentMeal
+        }
+
+        await currBucket.addItemToBucket(newFoodItem)
+
+    }
+
+    
+    
     
     // console.log(currBucket.user)
     // console.log(newFoodItem)
-    console.log('hihi')
-    await currBucket.addItemToBucket(newFoodItem)
+    
     
     // res.json(newFoodItem)
 }
