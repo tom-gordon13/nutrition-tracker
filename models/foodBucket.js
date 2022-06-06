@@ -12,11 +12,11 @@ const itemsEatenSchema = new Schema ({
         type: String,
         enum: ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
     },
-    dish: {
-        type: Schema.Types.ObjectId,
-        ref: 'Dish',
-        required: false,
-    }
+    // dish: {
+    //     type: Schema.Types.ObjectId,
+    //     ref: 'Dish',
+    //     required: false,
+    // }
 }, {
     timestamps: true
 })

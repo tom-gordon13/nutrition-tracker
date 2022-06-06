@@ -33,10 +33,10 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
 
     return (
         <div>
-            <h1>Food Test</h1>
+            <h1>Search for a food:</h1>
             
             <form onSubmit={handleFoodSearch}>
-                <h2>New Food</h2>
+                <h4>New Food</h4>
                 <input
                     onChange={(evt) =>
                         setFoodSearch(evt.target.value)
