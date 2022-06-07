@@ -9,7 +9,7 @@ router.get('/:currentMeal/:currBucketDate', foodBucketCtrl.getCurrMealItems)
 // POST /api/posts
 router.post('/addBucket/:currDate', foodBucketCtrl.createNewBucket)
 router.post('/addLineItem', foodBucketCtrl.addLineItem)
-router.delete('/:currentMeal/:idx', foodBucketCtrl.deleteBucketItem)
+router.delete('/:currBucketId/:currentMeal/:idx/:currBucketDate', foodBucketCtrl.deleteBucketItem)
 
 
 

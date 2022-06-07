@@ -60,7 +60,7 @@ async function updateBucket(req, res) {
 }
 
 async function deleteBucketItem(req, res) {
-    let currBucket = await FoodBucket.findOne({ user: req.user._id}).exec();
+    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currBucketDate}).exec();
     await currBucket.deleteItemFromBucket(req.params.currentMeal, req.params.idx)
     res.json(currBucket)
 }

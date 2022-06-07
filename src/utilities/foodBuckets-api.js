@@ -16,8 +16,8 @@ export function getCurrMealItems(currentMeal, currBucketDate) {
     return sendRequest(`${BASE_URL}/${currentMeal}/${currBucketDate}`);
 }
 
-export function deleteBucketItem(currentMeal, idx) {
-    return sendRequest(`${BASE_URL}/${currentMeal}/${idx}`, 'DELETE')
+export function deleteBucketItem(currBucketId, currentMeal, idx, currBucketDate) {
+    return sendRequest(`${BASE_URL}/${currBucketId}/${currentMeal}/${idx}/${currBucketDate}`, 'DELETE')
 }
 
 export function getCurrBucket(tempDate) {

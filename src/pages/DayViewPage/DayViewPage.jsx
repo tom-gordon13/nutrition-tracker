@@ -54,14 +54,10 @@ export default function DayViewPage() {
                 
                 let bucket = await foodBucketsAPI.createFoodBucket(currDate);
                 setCurrBucket(bucket);
-                
             }
         }
-        
         createFoodBucket()
-        
         getCurrBucket(currDate)
-        
     }, [currDate])
     
     async function changeDate(direction) {
@@ -108,26 +104,22 @@ export default function DayViewPage() {
         async function addItemToBucket() {
             let tempItem = await bucketItems[bucketItems.length - 1]
             let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal, currBucket);
-            
             let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, currDate);
-            
             setDisplayBucketItems([...currMealItems])
-            
         }
-        
         if (currBucket)  addItemToBucket();
-        
     }, [bucketItems])
 
 
     async function deleteBucketItem(idx) {
-        let deleteItem = await foodBucketsAPI.deleteBucketItem(currentMeal, idx);
-        async function updateBucketDisplay() {
+        let updatedBucketRaw = await foodBucketsAPI.deleteBucketItem(currBucket._id, currentMeal, idx, currBucket.date);
+        let updatedBucketItems = updatedBucketRaw.itemsEaten.filter(item => item.meal === currentMeal)
+        setDisplayBucketItems(updatedBucketItems)
+        // async function updateBucketDisplay() {
             
-            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal);
-            setDisplayBucketItems(currMealItems)
-        }
-        if (currBucket) updateBucketDisplay();
+        //     let currMealItems = await foodBucketsAPI.getCurrMealItems(updatedBucket);
+        // }
+        // if (currBucket) updateBucketDisplay();
     }
 
     const [{ isOver }, dropRef] = useDrop({
