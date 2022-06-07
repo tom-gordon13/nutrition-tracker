@@ -7,6 +7,10 @@ const ensureLoggedIn = require('../../config/ensureLoggedIn');
 router.post('/addBucket', foodBucketCtrl.createNewBucket)
 router.post('/addLineItem', foodBucketCtrl.addLineItem)
 router.get('/:currentMeal', foodBucketCtrl.getCurrMealItems)
+router.delete('/:currentMeal/:idx', foodBucketCtrl.deleteBucketItem)
+
+
+
 
 module.exports = router
 

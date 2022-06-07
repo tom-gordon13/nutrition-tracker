@@ -3,7 +3,8 @@ const FoodBucket = require('../../models/foodBucket')
 module.exports = {
     createNewBucket,
     addLineItem,
-    getCurrMealItems
+    getCurrMealItems,
+    deleteBucketItem
 }
 
 async function createNewBucket(req, res) {
@@ -55,4 +56,12 @@ async function getCurrMealItems(req, res) {
         let currMealItems = currBucketArr[0].itemsEaten.filter( item =>  item.meal === req.params.currentMeal)
         res.json(currMealItems)
     }
+}
+
+
+async function deleteBucketItem(req, res) {
+    
+    let currBucket = await FoodBucket.findOne({ user: req.user._id}).exec();
+    await currBucket.deleteItemFromBucket(req.params.currentMeal, req.params.idx)
+    res.json(currBucket)
 }

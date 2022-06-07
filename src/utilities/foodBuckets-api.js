@@ -15,3 +15,7 @@ export function addItemToBucket(lineItem, currentMeal) {
 export function getCurrMealIteams(currentMeal) {
     return sendRequest(`${BASE_URL}/${currentMeal}`);
 }
+
+export function deleteBucketItem(currentMeal, idx) {
+    return sendRequest(`${BASE_URL}/${currentMeal}/${idx}`, 'DELETE')
+}

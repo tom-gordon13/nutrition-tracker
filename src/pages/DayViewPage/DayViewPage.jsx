@@ -8,6 +8,7 @@ import * as foodBucketsAPI from '../../utilities/foodBuckets-api'
 import { useDrop, useDrag } from 'react-dnd'
 import FoodBucketLineItem from '../../components/FoodBucket/FoodBucketLineItem'
 import DishDisplay from '../../components/DishDisplay/DishDisplay'
+import './DayViewPage.css'
 
 
 export default function DayViewPage() {
@@ -69,6 +70,22 @@ export default function DayViewPage() {
         updateBucketDisplay();
     }, [bucketItems])
 
+
+    async function deleteBucketItem(idx) {
+        let deleteItem = await foodBucketsAPI.deleteBucketItem(currentMeal, idx);
+        // console.log(displayBucketItems)
+        // console.log(idx)
+        // let newDisplayItems = displayBucketItems
+        // newDisplayItems.splice(idx, 1)
+        // setDisplayBucketItems(newDisplayItems)
+        async function updateBucketDisplay() {
+            
+            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            setDisplayBucketItems(currMealItems)
+        }
+        updateBucketDisplay();
+    }
+
     const [{ isOver }, dropRef] = useDrop({
         accept: 'foodItem',
         drop: (item) => setBucketItems([...bucketItems, item]),
@@ -104,12 +121,12 @@ export default function DayViewPage() {
                     </div>
 
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}
-                    <div className="col-6">
+                    <div className="col-6 d-flex justify-content-center flex-wrap">
                         
-                        <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal}/>
-                        <div className='foodBucket border border-dark' ref={dropRef}>
+                        <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} />
+                        <div className='foodBucket border border-dark overflow-auto h50 w-75' ref={dropRef}>
                             {displayBucketItems.map((item, idx) =>
-                                <FoodBucketLineItem item={item} key={idx} />)}
+                                <FoodBucketLineItem item={item} key={idx} idx={idx} deleteBucketItem={deleteBucketItem} />)}
                             {isOver && <div>drop here!</div>}    
                         </div>
                     </div>

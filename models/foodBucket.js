@@ -58,6 +58,17 @@ foodBucketSchema.methods.addItemToBucket = async function(item) {
     return bucket.save();
 }
 
+foodBucketSchema.methods.deleteItemFromBucket = async function(currentMeal, idx) {
+    const bucket = this;
+    
+    
+    let item_id = bucket.itemsEaten.filter(item => item.meal === currentMeal)[idx].id
+    let newItems = bucket.itemsEaten.filter(item => item.id !== item_id)
+    bucket.itemsEaten = newItems;
+    return bucket.save();
+
+}
+
 
 
 module.exports = mongoose.model('FoodBucket', foodBucketSchema)

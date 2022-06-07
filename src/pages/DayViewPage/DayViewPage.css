@@ -1,0 +1,5 @@
+.foodBucket {
+    display: flex;
+    flex-direction: column;
+    
+}

@@ -18,7 +18,7 @@ export default function NavBar({ user, setUser }) {
     }
 
     return (
-        <nav className='d-flex'>
+        <nav className='d-flex navBar-total'>
 
             <span className="leftLogo display-3">Nourish</span>
 
