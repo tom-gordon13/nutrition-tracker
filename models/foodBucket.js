@@ -50,13 +50,11 @@ const foodBucketSchema = new Schema({
 
 // INSTANCE METHODS
 foodBucketSchema.methods.addItemToBucket = async function(item) {
-    console.log('hi')
+    
     // set 'bucket' variable to current bucket object
     const bucket = this;
-
     bucket.itemsEaten.push( item ) 
-    console.log(`Item - ${item}`)
-    console.log(`Bucket - ${bucket}`)
+    
     return bucket.save();
 }
 

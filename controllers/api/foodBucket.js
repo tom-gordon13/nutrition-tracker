@@ -3,6 +3,7 @@ const FoodBucket = require('../../models/foodBucket')
 module.exports = {
     createNewBucket,
     addLineItem,
+    getCurrMealItems
 }
 
 async function createNewBucket(req, res) {
@@ -20,6 +21,10 @@ async function createNewBucket(req, res) {
         const newFoodBucket = await FoodBucket.create(newBucket);
         res.json(newFoodBucket)
     }
+
+    if (bucketMatch.length > 0) {
+        res.json(bucketMatch[0])
+    }
 }
 
 
@@ -28,37 +33,26 @@ async function addLineItem(req, res) {
     let currBucket = await FoodBucket.findOne({ user: req.user._id}).exec();
     
     if (req.body.lineItem) {
+        
         let newFoodItem = {
             itemName: req.body.lineItem.itemName,
             fdcId: req.body.lineItem.fdcId,
             meal: req.body.currentMeal
         }
-
+        
         await currBucket.addItemToBucket(newFoodItem)
-
+        
     }
 
-    
-    
-    
-    // console.log(currBucket.user)
-    // console.log(newFoodItem)
-    
-    
-    // res.json(newFoodItem)
+    res.json(currBucket)
 }
 
-
-// foodItem: {
-//     type: Schema.Types.ObjectId,
-//     ref: 'FoodItem',
-//     required: true
-// },
-// qty: {
-//     type: Number,
-//     default: 1
-// },
-// meal: {
-//     type: String,
-//     enum: ['Breakfast', 'Lunch', 'Dinner', 'Snacks']
-// },
+async function getCurrMealItems(req, res) {
+    
+    let currBucketArr = await FoodBucket.find({ user: req.user._id}).exec();
+    
+    if (currBucketArr.length > 0 && currBucketArr[0].itemsEaten.length > 0) {
+        let currMealItems = currBucketArr[0].itemsEaten.filter( item =>  item.meal === req.params.currentMeal)
+        res.json(currMealItems)
+    }
+}

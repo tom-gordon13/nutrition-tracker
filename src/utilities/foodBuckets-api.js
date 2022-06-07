@@ -12,3 +12,6 @@ export function addItemToBucket(lineItem, currentMeal) {
     return sendRequest(`${BASE_URL}/addLineItem`, 'POST', {lineItem, currentMeal})
 }
 
+export function getCurrMealIteams(currentMeal) {
+    return sendRequest(`${BASE_URL}/${currentMeal}`);
+}

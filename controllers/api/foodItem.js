@@ -18,4 +18,10 @@ async function createFoodItem(req, res) {
         const newFoodItem = await FoodItem.create(newItem);
         res.json(newFoodItem)
     }
+
+    if (foodMatch.length > 0) {
+        const foodItem = foodMatch[0]
+        res.json(foodItem)
+    }
+    
 }

@@ -24,15 +24,26 @@ export default function DayViewPage() {
     const [displayFoods, setDisplayFoods] = useState([])
     const [currentMeal, setCurrentMeal] = useState('Breakfast')
     const [bucketItems, setBucketItems] = useState([])
+    const [displayBucketItems, setDisplayBucketItems] = useState([])
     const [currBucket, setCurrBucket] = useState(emptyBucket)
 
     async function handleNewFoodItem(foodItem) {
         const food = await foodItemsAPI.addFoodItem(foodItem)
+        console.log('hi')
     }
 
     useEffect(function() {
-        
+        async function updateBucketDisplay() {
+            
+            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            setDisplayBucketItems(currMealItems)
+        }
 
+        updateBucketDisplay();
+    }, [currentMeal])
+
+
+    useEffect(function() {
         async function createFoodBucket() {
             if (currBucket.date.getYear === falseDate.getYear) {
                 
@@ -46,12 +57,17 @@ export default function DayViewPage() {
             let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal);
             
         }
+
+        async function updateBucketDisplay() {
+            
+            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            setDisplayBucketItems(currMealItems)
+        }
         
         createFoodBucket();
         addItemToBucket();
+        updateBucketDisplay();
     }, [bucketItems])
-
-
 
     const [{ isOver }, dropRef] = useDrop({
         accept: 'foodItem',
@@ -62,7 +78,6 @@ export default function DayViewPage() {
     })
 
     return (
-        
             <div className="row">
 
                 <div className="row">
@@ -93,7 +108,7 @@ export default function DayViewPage() {
                         
                         <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal}/>
                         <div className='foodBucket border border-dark' ref={dropRef}>
-                            {bucketItems.map((item, idx) =>
+                            {displayBucketItems.map((item, idx) =>
                                 <FoodBucketLineItem item={item} key={idx} />)}
                             {isOver && <div>drop here!</div>}    
                         </div>
