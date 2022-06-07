@@ -4,15 +4,23 @@ import './FoodBucket.css'
 import FoodBucketLineItem from './FoodBucketLineItem'
 
 
-export default function FoodBucket({ currentMeal, setCurrentMeal, currBucket}) {
+export default function FoodBucket({ currentMeal, setCurrentMeal, currBucket, currDate, changeDate }) {
+    let todayDate = new Date().toISOString().split('T')[0]
+    let match = todayDate === currDate
+    let disabled = 'disabled'
+
     function handleMealChange(evt) {
         setCurrentMeal(evt.target.value)
     }
 
+    function handleDateChange(evt) {
+        changeDate(evt.target.innerText)
+    }
+
     return (
         <div className='d-flex flex-column justify-content-center flex-wrap align-items-center'>
-            {/* <h1> <button>&lt;</button>{`${currBucket.date.substring(5,7)}/${currBucket.date.substring(8,10)}/${currBucket.date.substring(0,4)}`}<button>&gt;</button> </h1> */}
-            <h1> <button>&lt;</button>Today's Date<button>&gt;</button> </h1>
+            
+            <h1> <button onClick={handleDateChange}>&lt;</button> {currDate} <button onClick={handleDateChange} {... match ? {disabled} : {}}  > &gt;</button> </h1>
 
             <label className='mb-2'>
                 <strong className='h4'>Meal: </strong>

@@ -15,75 +15,119 @@ export default function DayViewPage() {
     let falseDate = new Date('2000-1-1')
     
     let emptyBucket = {
-        date: new Date('2000-1-1'),
+        date: new Date('2000-1-1').toISOString().split('T')[0],
         // user: 
         itemsEaten: []
     }
-    
-    const [food, setFood] = useState({})
 
+
+    const [food, setFood] = useState({})
+    const [currDate, setCurrDate] = useState(new Date().toISOString().split('T')[0])
     const [displayFoods, setDisplayFoods] = useState([])
     const [currentMeal, setCurrentMeal] = useState('Breakfast')
     const [bucketItems, setBucketItems] = useState([])
     const [displayBucketItems, setDisplayBucketItems] = useState([])
-    const [currBucket, setCurrBucket] = useState(emptyBucket)
+    const [currBucket, setCurrBucket] = useState(null)
 
     async function handleNewFoodItem(foodItem) {
         const food = await foodItemsAPI.addFoodItem(foodItem)
-        console.log('hi')
     }
 
+
     useEffect(function() {
-        async function updateBucketDisplay() {
+        // let tempDate = new Date().toISOString().split('T')[0]
+        let newCurrBucket;
+
+        async function getCurrBucket(currDate) {
+            newCurrBucket = await foodBucketsAPI.getCurrBucket(currDate);
+            if (newCurrBucket === null) {
+                newCurrBucket = await foodBucketsAPI.createFoodBucket(currDate);
+            }
+            setCurrBucket(newCurrBucket)
             
-            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, newCurrBucket.date);
             setDisplayBucketItems(currMealItems)
         }
 
-        updateBucketDisplay();
-    }, [currentMeal])
+        async function createFoodBucket() {
+            if (newCurrBucket === null) {
+                
+                let bucket = await foodBucketsAPI.createFoodBucket(currDate);
+                setCurrBucket(bucket);
+                
+            }
+        }
+        
+        createFoodBucket()
+        
+        getCurrBucket(currDate)
+        
+    }, [currDate])
+    
+    async function changeDate(direction) {
+        let tempDate;
+        if (direction === '<') {
+            tempDate = new Date(currDate)
+            tempDate.setDate(tempDate.getDate()-1)
+            tempDate = tempDate.toISOString().split('T')[0];
+            setCurrDate(tempDate)
+        }
+        
+        if (direction === '>') {
+            tempDate = new Date(currDate)
+            tempDate.setDate(tempDate.getDate()+1)
+            tempDate = tempDate.toISOString().split('T')[0];
+            setCurrDate(tempDate)
+        }
+        
+        async function getCurrBucket(tempDate) {
+            let newCurrBucket = await foodBucketsAPI.getCurrBucket(tempDate);
+            setCurrBucket(newCurrBucket)
+        }
+        if (currBucket) getCurrBucket(tempDate)
+
+    }
+    
+
+    useEffect(function() {
+        
+        async function updateBucketDisplay() {
+            let newCurrBucket = await foodBucketsAPI.getCurrBucket(currDate);
+            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, newCurrBucket.date);
+            
+            setDisplayBucketItems(currMealItems)
+            
+        }
+
+        if (currBucket !== null) updateBucketDisplay();
+    }, [currentMeal, currBucket])
 
 
     useEffect(function() {
-        async function createFoodBucket() {
-            if (currBucket.date.getYear === falseDate.getYear) {
-                
-                let bucket = await foodBucketsAPI.createFoodBucket();
-                setCurrBucket(bucket);
-            }
-        }
 
         async function addItemToBucket() {
             let tempItem = await bucketItems[bucketItems.length - 1]
-            let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal);
-            
+            let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal, currBucket);
         }
 
         async function updateBucketDisplay() {
-            
-            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal);
             setDisplayBucketItems(currMealItems)
         }
         
-        createFoodBucket();
-        addItemToBucket();
-        updateBucketDisplay();
+        if (currBucket)  addItemToBucket();
+        if (currBucket)  updateBucketDisplay();
     }, [bucketItems])
 
 
     async function deleteBucketItem(idx) {
         let deleteItem = await foodBucketsAPI.deleteBucketItem(currentMeal, idx);
-        // console.log(displayBucketItems)
-        // console.log(idx)
-        // let newDisplayItems = displayBucketItems
-        // newDisplayItems.splice(idx, 1)
-        // setDisplayBucketItems(newDisplayItems)
         async function updateBucketDisplay() {
             
-            let currMealItems = await foodBucketsAPI.getCurrMealIteams(currentMeal);
+            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal);
             setDisplayBucketItems(currMealItems)
         }
-        updateBucketDisplay();
+        if (currBucket) updateBucketDisplay();
     }
 
     const [{ isOver }, dropRef] = useDrop({
@@ -123,7 +167,7 @@ export default function DayViewPage() {
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}
                     <div className="col-6 d-flex justify-content-center flex-wrap">
                         
-                        <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} />
+                        <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} currDate={currDate} changeDate={changeDate}/>
                         <div className='foodBucket border border-dark overflow-auto h50 w-75' ref={dropRef}>
                             {displayBucketItems.map((item, idx) =>
                                 <FoodBucketLineItem item={item} key={idx} idx={idx} deleteBucketItem={deleteBucketItem} />)}
