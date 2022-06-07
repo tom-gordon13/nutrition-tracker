@@ -115,11 +115,6 @@ export default function DayViewPage() {
         let updatedBucketRaw = await foodBucketsAPI.deleteBucketItem(currBucket._id, currentMeal, idx, currBucket.date);
         let updatedBucketItems = updatedBucketRaw.itemsEaten.filter(item => item.meal === currentMeal)
         setDisplayBucketItems(updatedBucketItems)
-        // async function updateBucketDisplay() {
-            
-        //     let currMealItems = await foodBucketsAPI.getCurrMealItems(updatedBucket);
-        // }
-        // if (currBucket) updateBucketDisplay();
     }
 
     const [{ isOver }, dropRef] = useDrop({

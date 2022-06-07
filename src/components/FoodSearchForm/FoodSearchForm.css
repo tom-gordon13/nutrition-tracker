@@ -1,0 +1,18 @@
+.form-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    height: 7vh;
+}
+
+.search-input {
+    height: 5vh;
+    margin: 2px;
+}
+
+.submit-btn {
+    height: 5vh;
+    background-color: yellowgreen;
+    margin-top: 0;
+}

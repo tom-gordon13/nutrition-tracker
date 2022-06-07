@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react"
 import { useDrag } from 'react-dnd'
+import './FoodSearchDisplay.css'
 
 export default function FoodSearchDisplay({ food }) {
     let newFood = {
         itemName: food.description, 
-        fdcId: food.fdcId
+        fdcId: food.fdcId,
+        category: food.category
     }
     
     const [{ isDragging }, dragRef] = useDrag({
@@ -16,9 +18,10 @@ export default function FoodSearchDisplay({ food }) {
     })
 
     return (
-        <div className='card border bg-primary' ref={dragRef}>
+        <div className='card display-cards' ref={dragRef}>
             <div className="card-content">
-                <h3>Food: {food.description}</h3>
+                <h5>Food: {food.description}</h5>
+                <h6>Category: {food.foodCategory}</h6>
         
                 {isDragging && '😱'}
                 
