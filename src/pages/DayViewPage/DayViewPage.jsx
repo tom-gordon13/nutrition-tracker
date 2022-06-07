@@ -35,7 +35,7 @@ export default function DayViewPage() {
 
 
     useEffect(function() {
-        // let tempDate = new Date().toISOString().split('T')[0]
+        
         let newCurrBucket;
 
         async function getCurrBucket(currDate) {
@@ -108,15 +108,15 @@ export default function DayViewPage() {
         async function addItemToBucket() {
             let tempItem = await bucketItems[bucketItems.length - 1]
             let lineItem = await foodBucketsAPI.addItemToBucket(tempItem, currentMeal, currBucket);
-        }
-
-        async function updateBucketDisplay() {
-            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal);
-            setDisplayBucketItems(currMealItems)
+            
+            let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, currDate);
+            
+            setDisplayBucketItems([...currMealItems])
+            
         }
         
         if (currBucket)  addItemToBucket();
-        if (currBucket)  updateBucketDisplay();
+        
     }, [bucketItems])
 
 
