@@ -3,6 +3,11 @@ const Schema = mongoose.Schema
 const foodItemSchema = require('./foodItem')
 
 const itemsEatenSchema = new Schema ({
+    foodRef: {
+        type: Schema.Types.ObjectId,
+        ref: 'FoodItem',
+        required: true
+    },
     itemName: {
         type: String,
         required: true
@@ -48,6 +53,17 @@ const foodBucketSchema = new Schema({
 })
 
 
+// VIRTUAL ATTRIBUTES
+foodBucketSchema.virtual('nutrientTotal').get(function(nutrientName) {
+    let total = 0;
+
+    for (nutrient of nutrientName) {
+
+    }
+
+})
+
+
 // INSTANCE METHODS
 foodBucketSchema.methods.addItemToBucket = async function(item) {
     
@@ -61,11 +77,16 @@ foodBucketSchema.methods.addItemToBucket = async function(item) {
 foodBucketSchema.methods.deleteItemFromBucket = async function(currentMeal, idx) {
     const bucket = this;
     
-    
     let item_id = bucket.itemsEaten.filter(item => item.meal === currentMeal)[idx].id
     let newItems = bucket.itemsEaten.filter(item => item.id !== item_id)
     bucket.itemsEaten = newItems;
     return bucket.save();
+
+}
+
+
+foodBucketSchema.methods.getBucketNutrients = async function () {
+    const bucket = this;
 
 }
 

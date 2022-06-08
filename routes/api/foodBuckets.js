@@ -4,6 +4,7 @@ const foodBucketCtrl = require('../../controllers/api/foodBucket');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
 router.get('/updateBucket/:tempDate', foodBucketCtrl.updateBucket)
+router.get('/getBucketN4utrients/:currBucketId/:currDate', foodBucketCtrl.getBucketNutrients)
 router.get('/:currentMeal/:currBucketDate', foodBucketCtrl.getCurrMealItems)
 
 // POST /api/posts

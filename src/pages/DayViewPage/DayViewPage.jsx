@@ -8,6 +8,7 @@ import * as foodBucketsAPI from '../../utilities/foodBuckets-api'
 import { useDrop, useDrag } from 'react-dnd'
 import FoodBucketLineItem from '../../components/FoodBucket/FoodBucketLineItem'
 import DishDisplay from '../../components/DishDisplay/DishDisplay'
+import NutritionSummary from '../../components/NutritionSummary/NutritionSummary'
 import './DayViewPage.css'
 
 
@@ -30,6 +31,7 @@ export default function DayViewPage() {
     const [currBucket, setCurrBucket] = useState(null)
 
     async function handleNewFoodItem(foodItem) {
+        
         const food = await foodItemsAPI.addFoodItem(foodItem)
     }
 
@@ -164,7 +166,7 @@ export default function DayViewPage() {
 
                     {/* RIGHTHAND PANEL - DAILY NUTRITION SUMMARY */}
                     <div className="col-3">
-                        <Placeholder />
+                        <NutritionSummary currDate={currDate} currBucket={currBucket} />
                     </div>
                 </div>
             </div>

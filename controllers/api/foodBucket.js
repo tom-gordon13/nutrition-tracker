@@ -1,11 +1,13 @@
 const FoodBucket = require('../../models/foodBucket')
+const FoodItem = require('../../models/foodItem')
 
 module.exports = {
     createNewBucket,
     addLineItem,
     getCurrMealItems,
     updateBucket,
-    deleteBucketItem, 
+    deleteBucketItem,
+    getBucketNutrients 
 }
 
 async function createNewBucket(req, res) {
@@ -32,10 +34,12 @@ async function createNewBucket(req, res) {
 
 async function addLineItem(req, res) {
     let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.body.currBucket.id, date: req.body.currBucket.date}).exec();
-    
+    let foodItemRef = await FoodItem.findOne({ fdcId: req.body.lineItem.fdcId }).exec();
+
     if (req.body.lineItem) {
         
         let newFoodItem = {
+            foodRef: foodItemRef.id, 
             itemName: req.body.lineItem.itemName,
             fdcId: req.body.lineItem.fdcId,
             meal: req.body.currentMeal
@@ -63,6 +67,20 @@ async function deleteBucketItem(req, res) {
     let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currBucketDate}).exec();
     await currBucket.deleteItemFromBucket(req.params.currentMeal, req.params.idx)
     res.json(currBucket)
+}
+
+
+async function getBucketNutrients(req, res) {
+    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currDate}).exec();
+    
+    
+    const nutrientObject = {
+        Protein: 0,
+        Carbohyrdate: 0,
+        Fiber: 0
+    }
+
+    console.log(req.params.currBucketId, req.params.currDate)
 }
 
 

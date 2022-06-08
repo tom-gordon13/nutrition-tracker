@@ -23,3 +23,7 @@ export function deleteBucketItem(currBucketId, currentMeal, idx, currBucketDate)
 export function getCurrBucket(tempDate) {
     return sendRequest(`${BASE_URL}/updateBucket/${tempDate}`)
 }
+
+export function getBucketNutrients(currBucketId, currDate) {
+    return sendRequest(`${BASE_URL}/getBucketNutrients/${currBucketId}/${currDate}`)
+}

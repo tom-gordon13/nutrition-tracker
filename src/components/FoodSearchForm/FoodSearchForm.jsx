@@ -19,15 +19,18 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
             let newArr = food.foods.slice(0, 5)
 
             for (let food of newArr) {
+                console.log(food)
                 let newItem = ({
                     itemName: food.description,
                     fdcId: food.fdcId,
                     servingSize: `${food.servingSize}${food.servingSizeUnit}`,
-                    category: food.foodCategory
+                    category: food.foodCategory,
+                    nutrientArr: food.foodNutrients
                 })
+                handleNewFoodItem(newItem)
             }
             setDisplayFoods(newArr)
-            console.log(newArr)
+            
             return food
         }
         getFood()
