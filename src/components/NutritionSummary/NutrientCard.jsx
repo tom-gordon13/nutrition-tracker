@@ -1,10 +1,10 @@
 export default function NutrientCard({ nutrient, amount, units }) {
     return (
-        <tr className='d-flex justify-content-start px-2'>
+        <tr className='d-flex justify-content-start'>
             
 
-            <td><span className='text-left'>{nutrient}</span></td>
-            <td><span>Value: {amount.toFixed(1)}{units}</span></td>
+            <td width='200' className='d-flex justify-content-start'>{nutrient}</td>
+            <td width='100' className='d-flex justify-content-end'>{amount.toFixed(1)}{units}</td>
             
         </tr>
     )

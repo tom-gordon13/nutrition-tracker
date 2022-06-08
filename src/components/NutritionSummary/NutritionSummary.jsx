@@ -30,10 +30,10 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
 
 
                 <table>
-                    <tr >
-                        <th>
-                            <td width='300' >Nutrient</td>
-                            <td>Volume</td>
+                    <tr>
+                        <th className='d-flex justify-content-start'>
+                            <td width='200' className='d-flex justify-content-start'>Nutrient</td>
+                            <td width='100' className='d-flex justify-content-end'>Volume</td>
                         </th>
                     </tr>
                     {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <tr>...</tr>}
