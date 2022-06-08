@@ -73,14 +73,8 @@ async function deleteBucketItem(req, res) {
 async function getBucketNutrients(req, res) {
     let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currDate}).exec();
     
-    
-    const nutrientObject = {
-        Protein: 0,
-        Carbohyrdate: 0,
-        Fiber: 0
-    }
-
-    console.log(req.params.currBucketId, req.params.currDate)
+    let bucketNutrients = await currBucket.getBucketNutrients();
+    res.json(bucketNutrients)
 }
 
 

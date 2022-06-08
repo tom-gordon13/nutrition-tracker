@@ -53,16 +53,6 @@ const foodBucketSchema = new Schema({
 })
 
 
-// VIRTUAL ATTRIBUTES
-foodBucketSchema.virtual('nutrientTotal').get(function(nutrientName) {
-    let total = 0;
-
-    for (nutrient of nutrientName) {
-
-    }
-
-})
-
 
 // INSTANCE METHODS
 foodBucketSchema.methods.addItemToBucket = async function(item) {
@@ -84,11 +74,26 @@ foodBucketSchema.methods.deleteItemFromBucket = async function(currentMeal, idx)
 
 }
 
-
 foodBucketSchema.methods.getBucketNutrients = async function () {
     const bucket = this;
 
-}
+    let nutrientObj = {};
+
+    if (bucket.itemsEaten.length > 0 ) {
+        
+        this.itemsEaten.forEach(item => {
+            item.populate('FoodItem').exec(function() {
+                item.FoodItem.nutrientArr.forEach(nutrient => {
+                    nutrientObj.nutrient ? nutrientObj.nutrient += nutrient.value : nutrient.value
+                    
+                })
+            })
+
+        })
+    }
+    return nutrientObj
+    }
+
 
 
 
