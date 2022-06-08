@@ -71,10 +71,32 @@ async function deleteBucketItem(req, res) {
 
 
 async function getBucketNutrients(req, res) {
-    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currDate}).exec();
+    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currDate});
     
-    let bucketNutrients = await currBucket.getBucketNutrients();
-    res.json(bucketNutrients)
+    let nutrientObj = {}
+
+    FoodBucket.findOne({ id: currBucket._id}).populate({
+                    path: 'itemsEaten',
+                    populate: {
+                        path: 'foodRef',
+                        model: 'FoodItem'
+                    }
+                }).exec(function(err, doc) {
+                    
+                    
+
+                    doc.itemsEaten.forEach( item => {
+                        
+                        item.foodRef.nutrientArr.forEach(nutrient => {
+                            // nutrientObj[nutrient.nutrientName] ? nutrientObj[nutrient.nutrientName] += nutrient.value : nutrientObj[nutrient.nutrientName] = nutrient.value
+                            
+                            !nutrientObj[nutrient.nutrientName] ? nutrientObj[nutrient.nutrientName] = {'value': nutrient.value, 'units': nutrient.units} : nutrientObj[nutrient.nutrientName].value += nutrient.value
+                        })
+                    })
+                    res.json(nutrientObj)
+                })
+    
+    
 }
 
 

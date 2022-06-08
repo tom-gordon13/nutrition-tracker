@@ -74,22 +74,21 @@ foodBucketSchema.methods.deleteItemFromBucket = async function(currentMeal, idx)
 
 }
 
-foodBucketSchema.methods.getBucketNutrients = async function () {
-    const bucket = this;
+foodBucketSchema.statics.getBucketNutrients = async function (bucket) {
 
     let nutrientObj = {};
 
     if (bucket.itemsEaten.length > 0 ) {
         
-        this.itemsEaten.forEach(item => {
-            item.populate('FoodItem').exec(function() {
-                item.FoodItem.nutrientArr.forEach(nutrient => {
-                    nutrientObj.nutrient ? nutrientObj.nutrient += nutrient.value : nutrient.value
-                    
-                })
-            })
-
+        foodBucketSchema.findOne({ id: bucket._id}).populate({
+            path: 'itemsEaten',
+            model: 'FoodItem'
+        }).exec(function(err, docs) {
+            console.log(err)
+            console.log(this.itemsEaten)
         })
+
+        
     }
     return nutrientObj
     }

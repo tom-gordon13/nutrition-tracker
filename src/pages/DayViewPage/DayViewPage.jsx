@@ -166,7 +166,7 @@ export default function DayViewPage() {
 
                     {/* RIGHTHAND PANEL - DAILY NUTRITION SUMMARY */}
                     <div className="col-3">
-                        <NutritionSummary currDate={currDate} currBucket={currBucket} />
+                        <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems}/>
                     </div>
                 </div>
             </div>
