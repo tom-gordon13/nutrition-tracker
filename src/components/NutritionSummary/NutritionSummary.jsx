@@ -26,11 +26,23 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
         <div className='card nutrient-card'>
             <div className="card-content">
                 <h2>Nutrition Summary</h2>
-                {/* <h5>{currDate}</h5> */}
-                <div className="border border-dark overflow-auto h50 w-75">
-                    {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <h1>hi</h1>}
-                    {/* {Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} value={value[0]} units={value[1]} />)} */}
-                </div>
+                <h5>{currDate}</h5>
+
+
+                <table>
+                    <tr >
+                        <th>
+                            <td width='300' >Nutrient</td>
+                            <td>Volume</td>
+                        </th>
+                    </tr>
+                    {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <tr>...</tr>}
+
+                </table>
+                {/* <div className="border border-dark overflow-auto h50 w-75 p-0">
+                    {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <h1>...</h1>}
+                    
+                </div> */}
 
 
             </div>
