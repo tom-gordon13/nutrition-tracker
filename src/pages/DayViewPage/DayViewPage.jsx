@@ -115,8 +115,12 @@ export default function DayViewPage() {
 
     async function deleteBucketItem(idx) {
         let updatedBucketRaw = await foodBucketsAPI.deleteBucketItem(currBucket._id, currentMeal, idx, currBucket.date);
-        let updatedBucketItems = updatedBucketRaw.itemsEaten.filter(item => item.meal === currentMeal)
-        setDisplayBucketItems(updatedBucketItems)
+        // let updatedBucketItems = updatedBucketRaw.itemsEaten.filter(item => item.meal === currentMeal)
+
+        let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, updatedBucketRaw.date);
+        setDisplayBucketItems(currMealItems)
+
+        // setDisplayBucketItems(updatedBucketItems)
     }
 
     const [{ isOver }, dropRef] = useDrop({
@@ -140,9 +144,9 @@ export default function DayViewPage() {
     return (
             <div className="row">
 
-                <div className="row">
+                <div className="row d-flex justify-content-start w-100">
                     {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY & DISHES DISPLAY*/}
-                    <div className="col-3 lefthand-panel">
+                    <div className="col-2 lefthand-panel">
 
                         <FoodSearchForm
                             setFood={setFood}
@@ -173,7 +177,7 @@ export default function DayViewPage() {
                     </div>
 
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}
-                    <div className="col-6 d-flex justify-content-center flex-wrap center-panel">
+                    <div className="col-2 d-flex justify-content-center flex-wrap center-panel">
                         
                         <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} currDate={currDate} changeDate={changeDate}/>
                         <div className='foodBucket border border-dark overflow-auto h50 w-75' ref={dropRef}>
@@ -184,7 +188,7 @@ export default function DayViewPage() {
                     </div>
 
                     {/* RIGHTHAND PANEL - DAILY NUTRITION SUMMARY */}
-                    <div className="col-1 right-panel">
+                    <div className="col-3 right-panel">
                         <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems}/>
                     </div>
                 </div>

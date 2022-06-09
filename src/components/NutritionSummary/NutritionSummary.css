@@ -1,3 +1,21 @@
 .nutrient-card {
     height: 70vh;
+    margin-right: 0;
+    width: 21vw;
+}
+
+.nutrient-table {
+    width: 20vw
+}
+
+.nutrient-col {
+    width: 60%;
+}
+
+.volume-col {
+    width: 15%
+}
+
+.perc-col {
+    width: 25%
 }

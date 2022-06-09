@@ -16,7 +16,7 @@ export default function FoodBucketLineItem({ item, idx, deleteBucketItem }) {
                 
                 <span><b>Serving Size:</b> {newSS ? newSS : 'N/A'}</span>
             </div>
-            <div className="col-4 d-flex align-items-center">
+            <div className="col-3 d-flex align-items-center">
                 <button className='bg-danger' onClick={handleDeleteItem}>Delete Item</button>
             </div>
         </div>

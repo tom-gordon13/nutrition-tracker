@@ -1,5 +1,6 @@
 .leftLogo {
     color: var(--green);
+    display: inline;
 }
 
 .navBar-right {
@@ -24,4 +25,10 @@
 .navBar-total {
     border-bottom: 1px solid var(--green);
     margin-bottom: 20px;
+}
+
+.main-icon {
+    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
+    height: 10%;
+    display: inline;
 }
