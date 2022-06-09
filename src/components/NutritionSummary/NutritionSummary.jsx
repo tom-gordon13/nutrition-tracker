@@ -11,17 +11,19 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
     useEffect(function () {
         async function getBucketNutrients() {
             
-            if (currBucket) {
+            if (currBucket && currBucket.itemsEaten.length > 0) {
+                
                 let newNutrients = await foodBucketAPI.getBucketNutrients(currBucket._id, currDate)
-                setBucketNutrients(newNutrients)
-
+                
+                let obj = (new Object(newNutrients))
+                
+                setBucketNutrients(newNutrients)  
+            } else {
+                setBucketNutrients(null)
             }
-
         }
         getBucketNutrients()
     }, [currBucket, displayBucketItems, currDate])
-
-
 
     return (
         <div className='card nutrient-card'>
@@ -29,27 +31,17 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                 <h2>Nutrition Summary</h2>
                 <h5>{currDate}</h5>
 
-
-
                 <table>
                     <thead>
                         <tr className='d-flex justify-content-start'>
-
                             <th width='200' className='d-flex justify-content-start'>Nutrient</th>
                             <th width='100' className='d-flex justify-content-end'>Volume</th>
-
                         </tr>
                     </thead>
                     <tbody>
-                        {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr><td>...</td></tr>}
+                        {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr><td> <h3>No Items Logged</h3> </td></tr>}
                     </tbody>
                 </table>
-                {/* <div className="border border-dark overflow-auto h50 w-75 p-0">
-                    {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <h1>...</h1>}
-                    
-                </div> */}
-
-
             </div>
         </div>
     )

@@ -22,6 +22,8 @@ export default function FoodSearchDisplay({ food }) {
             <div className="card-content">
                 <h5>Food: {food.description}</h5>
                 <h6>Category: {food.foodCategory}</h6>
+                { food.brandOwner ? <h6>Brand: {food.brandOwner} ({food.brandName})</h6> : ''}
+          
         
                 {isDragging && '😱'}
                 

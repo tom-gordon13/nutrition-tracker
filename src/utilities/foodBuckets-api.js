@@ -25,5 +25,5 @@ export function getCurrBucket(tempDate) {
 }
 
 export function getBucketNutrients(currBucketId, currDate) {
-    return sendRequest(`${BASE_URL}/getBucketNutrients/${currBucketId}/${currDate}`)
+    return sendRequest(`${BASE_URL}/getBucketNutrients/${currDate}`)
 }
