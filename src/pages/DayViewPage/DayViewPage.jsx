@@ -13,7 +13,6 @@ import './DayViewPage.css'
 
 
 export default function DayViewPage() {
-    let falseDate = new Date('2000-1-1')
     let disabled='disabled'
     let emptyBucket = {
         date: new Date('2000-1-1').toISOString().split('T')[0],
@@ -32,10 +31,10 @@ export default function DayViewPage() {
     const [searchResults, setSearchResults] = useState(0)
 
     async function handleNewFoodItem(foodItem) {
-        
         const food = await foodItemsAPI.addFoodItem(foodItem)
     }
 
+    
 
     useEffect(function() {
         
@@ -128,6 +127,16 @@ export default function DayViewPage() {
         })
     })
 
+
+   async function handleSearchToggle(evt) {
+       let move;
+       evt.target.innerText === 'Next' ? move = searchResults + 3 : move = searchResults - 3
+       setSearchResults(move) 
+   }
+
+    
+
+
     return (
             <div className="row">
 
@@ -140,10 +149,11 @@ export default function DayViewPage() {
                             setDisplayFoods={setDisplayFoods}
                             handleNewFoodItem={handleNewFoodItem}
                             searchResults={searchResults}
-                            setSearchResults={setSearchResults}
+                            // setSearchResults={setSearchResults}
+                            // handleSetSearchResults={handleSetSearchResults}
                         />
 
-                        {displayFoods ? displayFoods.map((food, idx) =>
+                        {displayFoods ? displayFoods.slice(searchResults, parseInt(searchResults)+3).map((food, idx) =>
                             <FoodSearchDisplay 
                             food={food} 
                             key={idx}
@@ -152,8 +162,9 @@ export default function DayViewPage() {
                             draggable />) : <h2>No Foods Selected</h2>}
                         
                         <div>
-                            <button {... !searchResults ? {disabled} : {}}>Prev</button>
-                            <button>Next</button>
+                            <button {... !searchResults ? {disabled} : {}} onClick={handleSearchToggle}>Prev</button>
+                            <button {... (searchResults === 12) ? {disabled} : {}} onClick={handleSearchToggle} >Next</button>
+                            {displayFoods.length > 0 ? <p>Displaying Results {searchResults+1} - {searchResults+3} of 15</p> : ''}
                         </div>
 
                         <hr />

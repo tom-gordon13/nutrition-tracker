@@ -34,9 +34,9 @@ async function createNewBucket(req, res) {
 
 async function addLineItem(req, res) {
     let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.body.currBucket.id, date: req.body.currBucket.date}).exec();
-    let foodItemRef = await FoodItem.findOne({ fdcId: req.body.lineItem.fdcId }).exec();
-
+    
     if (req.body.lineItem) {
+        let foodItemRef = await FoodItem.findOne({ fdcId: req.body.lineItem.fdcId }).exec();
         
         let newFoodItem = {
             foodRef: foodItemRef.id, 

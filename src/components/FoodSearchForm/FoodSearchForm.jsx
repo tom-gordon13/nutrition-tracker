@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import * as searchToDB from '../../utilities/search-to-db'
 import './FoodSearchForm.css'
 
-export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFoodItem, searchResults, setSearchResults }) {
+export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFoodItem, searchResults, handleSetSearchResults }) {
     const checked = 'checked'
     const [foodSearch, setFoodSearch] = useState('')
     const [brandedFilter, setBrandedFilter] = useState(false)
@@ -24,11 +24,19 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
         setGenericFilter(newGeneric)
     }
 
+
+    // async function handleSetSearchResults(results) {
+    //     let move = handleSearchToggle(evt)
+    //     let displayArr = results.slice(move, move + 3)
+    //     setDisplayFoods(displayArr)
+    // }
+
     async function handleSearchToggle(evt) {
         let move = 0;
         evt.target.innerText === 'Next' ? move = searchResults + 3 : move = searchResults - 3
-        setSearchResults(move)
+        return move
     }
+    
 
 
     function handleFoodSearch(evt) {
@@ -40,7 +48,7 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
             if (genericFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=15&dataType=Foundation&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
             const food = await res.json()
             setFood(food)
-            let newArr = food.foods.slice(searchResults, parseInt(searchResults)+3)
+            let newArr = food.foods.slice(0, 15)
 
             for (let food of newArr) {
                 let newItem = ({
@@ -54,6 +62,7 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
                 })
                 handleNewFoodItem(newItem)
             }
+            
             setDisplayFoods(newArr)
 
             return food
