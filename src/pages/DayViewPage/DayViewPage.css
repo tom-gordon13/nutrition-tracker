@@ -4,15 +4,16 @@
 }
 
 .lefthand-panel {
-    width: 32vw
+    width: 26vw
 }
 
 .center-panel {
     width: 45vw;
+    margin: 0;
 }
 
 .right-panel {
     width: 20vw;
-    justify-self: end;
-    margin: 0;
+    /* justify-self: end; */
+    margin-right: 0;
 }

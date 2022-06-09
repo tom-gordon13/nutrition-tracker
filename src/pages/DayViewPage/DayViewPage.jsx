@@ -142,9 +142,9 @@ export default function DayViewPage() {
 
 
     return (
-            <div className="row">
+            // <div className="row">
 
-                <div className="row d-flex justify-content-start w-100">
+                <div className="row d-flex justify-content-center w-100">
                     {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY & DISHES DISPLAY*/}
                     <div className="col-2 lefthand-panel">
 
@@ -192,7 +192,7 @@ export default function DayViewPage() {
                         <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems}/>
                     </div>
                 </div>
-            </div>
+            // </div>
         
     )
 }

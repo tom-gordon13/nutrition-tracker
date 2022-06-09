@@ -34,15 +34,16 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                 <h5>{currDate}</h5>
 
                 <table className='nutrient-table'>
-                    <thead>
+                    <thead className=''>
                         <tr className='d-flex justify-content-start w-100'>
                             <th className='d-flex justify-content-start nutrient-col'>Nutrient</th>
                             <th className='d-flex justify-content-end volume-col'>Volume</th>
                             <th className='d-flex justify-content-end perc-col'>% of RDI</th>
                         </tr>
                     </thead>
+                    <hr />
                     <tbody>
-                        {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr><td> <h3>No Items Logged</h3> </td></tr>}
+                        {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr ><td> <h3 className='mt-5'>No Items Logged</h3> </td></tr>}
                     </tbody>
                 </table>
             </div>
