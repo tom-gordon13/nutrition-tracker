@@ -10,15 +10,16 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
 
     useEffect(function () {
         async function getBucketNutrients() {
+            
             if (currBucket) {
                 let newNutrients = await foodBucketAPI.getBucketNutrients(currBucket._id, currDate)
                 setBucketNutrients(newNutrients)
-                console.log(newNutrients)
+
             }
 
         }
         getBucketNutrients()
-    }, [currBucket, displayBucketItems])
+    }, [currBucket, displayBucketItems, currDate])
 
 
 
@@ -29,15 +30,19 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                 <h5>{currDate}</h5>
 
 
-                <table>
-                    <tr>
-                        <th className='d-flex justify-content-start'>
-                            <td width='200' className='d-flex justify-content-start'>Nutrient</td>
-                            <td width='100' className='d-flex justify-content-end'>Volume</td>
-                        </th>
-                    </tr>
-                    {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <tr>...</tr>}
 
+                <table>
+                    <thead>
+                        <tr className='d-flex justify-content-start'>
+
+                            <th width='200' className='d-flex justify-content-start'>Nutrient</th>
+                            <th width='100' className='d-flex justify-content-end'>Volume</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr><td>...</td></tr>}
+                    </tbody>
                 </table>
                 {/* <div className="border border-dark overflow-auto h50 w-75 p-0">
                     {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value]) => <NutrientCard nutrient={key} amount={value.value} units={value.units} />) : <h1>...</h1>}
