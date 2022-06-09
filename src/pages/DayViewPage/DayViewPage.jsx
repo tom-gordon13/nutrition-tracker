@@ -132,7 +132,7 @@ export default function DayViewPage() {
 
                 <div className="row">
                     {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY & DISHES DISPLAY*/}
-                    <div className="col-3">
+                    <div className="col-3 lefthand-panel">
 
                         <FoodSearchForm
                             setFood={setFood}
@@ -154,7 +154,7 @@ export default function DayViewPage() {
                     </div>
 
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}
-                    <div className="col-6 d-flex justify-content-center flex-wrap">
+                    <div className="col-6 d-flex justify-content-center flex-wrap center-panel">
                         
                         <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} currDate={currDate} changeDate={changeDate}/>
                         <div className='foodBucket border border-dark overflow-auto h50 w-75' ref={dropRef}>
@@ -165,7 +165,7 @@ export default function DayViewPage() {
                     </div>
 
                     {/* RIGHTHAND PANEL - DAILY NUTRITION SUMMARY */}
-                    <div className="col-3">
+                    <div className="col-1 right-panel">
                         <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems}/>
                     </div>
                 </div>

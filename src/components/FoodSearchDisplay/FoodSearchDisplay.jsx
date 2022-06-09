@@ -19,10 +19,10 @@ export default function FoodSearchDisplay({ food }) {
 
     return (
         <div className='card display-cards' ref={dragRef}>
-            <div className="card-content">
-                <h5>Food: {food.description}</h5>
-                <h6>Category: {food.foodCategory}</h6>
-                { food.brandOwner ? <h6>Brand: {food.brandOwner} ({food.brandName})</h6> : ''}
+            <div className="card-content m-0">
+                <h6 className='m-0'>Food: {food.description}</h6>
+                <p className='m-0'>Category: {food.foodCategory}</p>
+                { food.brandOwner ? <p className='m-0'>Brand: {food.brandOwner} {food.brandName ? `(${food.brandName})` : ''} </p> : ''}
           
         
                 {isDragging && '😱'}

@@ -1,5 +1,18 @@
 .foodBucket {
     display: flex;
-    flex-direction: column;
-    
+    flex-direction: column;   
+}
+
+.lefthand-panel {
+    width: 32vw
+}
+
+.center-panel {
+    width: 45vw;
+}
+
+.right-panel {
+    width: 20vw;
+    justify-self: end;
+    margin: 0;
 }

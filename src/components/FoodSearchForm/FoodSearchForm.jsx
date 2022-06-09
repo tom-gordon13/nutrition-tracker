@@ -28,12 +28,12 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
         evt.preventDefault()
         async function getFood() {
             let res = ''
-            if (!brandedFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=5&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
-            if (brandedFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=5&dataType=Branded&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
-            if (genericFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=5&dataType=Foundation&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
+            if (!brandedFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=15&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
+            if (brandedFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=15&dataType=Branded&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
+            if (genericFilter) res = await fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${foodSearch}&pageSize=15&dataType=Foundation&api_key=t9Qh8VynOX436ctBiag5DelokknU3pxcDFpdcO8d`)
             const food = await res.json()
             setFood(food)
-            let newArr = food.foods.slice(0, 5)
+            let newArr = food.foods.slice(0, 3)
 
             for (let food of newArr) {
                 let newItem = ({
@@ -74,9 +74,9 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
                     <button className='submit-btn' type="submit">Search</button>
                 </div>
             </form>
-            <span>Include Only Branded Items: </span><input type="checkbox" id="html" name="branded" value="branded" onChange={handleCheck} {...(brandedFilter && { checked })} />
-            <br />
-            <span>Include Only Generic Items: </span><input type="checkbox" id="html" name="generic" value="generic" onChange={handleCheck} {...(genericFilter && { checked })} />
+            <span>Only Branded Items: </span><input type="checkbox" id="html" name="branded" value="branded" onChange={handleCheck} {...(brandedFilter && { checked })} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <span>Only Generic Items: </span><input type="checkbox" id="html" name="generic" value="generic" onChange={handleCheck} {...(genericFilter && { checked })} />
                 
                 <hr />
 
