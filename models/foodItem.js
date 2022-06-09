@@ -27,7 +27,15 @@ const foodItemSchema = new Schema({
         type: String,
         required: false
     },
-    nutrientArr: [foodItemNutrient]
+    nutrientArr: [foodItemNutrient],
+    category: {
+        type: String,
+        required: false
+    },
+    brandName: {
+        type: String,
+        required: false
+    }
 })
 
 module.exports = mongoose.model('FoodItem', foodItemSchema)

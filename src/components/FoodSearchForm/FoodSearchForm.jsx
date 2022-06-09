@@ -60,6 +60,7 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
                     brandName: food.brandName,
                     brandOwner: food.brandOwner,
                 })
+                
                 handleNewFoodItem(newItem)
             }
             

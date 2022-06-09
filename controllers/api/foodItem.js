@@ -11,7 +11,9 @@ async function createFoodItem(req, res) {
         itemName: req.body.itemName,
         fdcId: req.body.fdcId,
         servingSize: `${req.body.servingSize}${req.body.servingSizeUnit}`,
-        nutrientArr: []
+        nutrientArr: [],
+        category: req.body.category,
+        brandName: req.body.brandName
     })
     
     for (nutrient of req.body.nutrientArr) {

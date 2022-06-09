@@ -7,12 +7,12 @@ module.exports = {
     getCurrMealItems,
     updateBucket,
     deleteBucketItem,
-    getBucketNutrients 
+    getBucketNutrients
 }
 
 async function createNewBucket(req, res) {
     req.body.user = req.user._id
-    
+
     let bucketMatch = await FoodBucket.find({ user: req.user._id, date: req.params.currDate }).exec();
 
     if (bucketMatch.length === 0) {
@@ -21,74 +21,90 @@ async function createNewBucket(req, res) {
             user: req.body.user,
             itemsEaten: []
         }
-
         const newFoodBucket = await FoodBucket.create(newBucket);
         res.json(newFoodBucket)
     }
-
     if (bucketMatch.length > 0) {
         res.json(bucketMatch[0])
     }
 }
 
-
 async function addLineItem(req, res) {
-    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.body.currBucket.id, date: req.body.currBucket.date}).exec();
-    
+    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.body.currBucket.id, date: req.body.currBucket.date }).exec();
+
     if (req.body.lineItem) {
         let foodItemRef = await FoodItem.findOne({ fdcId: req.body.lineItem.fdcId }).exec();
-        
+
         let newFoodItem = {
-            foodRef: foodItemRef.id, 
+            foodRef: foodItemRef.id,
             itemName: req.body.lineItem.itemName,
             fdcId: req.body.lineItem.fdcId,
-            meal: req.body.currentMeal
+            meal: req.body.currentMeal,
+            category: req.body.category,
+            servingSize: req.body.servingSize,
+            brandName: req.body.brandName,
+            brandName: req.body.brandOwner
         }
         await currBucket.addItemToBucket(newFoodItem)
+
     }
     res.json(currBucket)
 }
 
 async function getCurrMealItems(req, res) {
-    let currBucketArr = await FoodBucket.find({ user: req.user._id, date: req.params.currBucketDate}).exec();
+    let currBucketArr = await FoodBucket.find({ user: req.user._id, date: req.params.currBucketDate }).exec();
+
     if (currBucketArr.length > 0) {
-        let currMealItems = currBucketArr[0].itemsEaten.filter( item =>  item.meal === req.params.currentMeal)
-        res.json(currMealItems)
+        FoodBucket.findOne({ user: req.user._id, date: req.params.currBucketDate }).populate({
+            path: 'itemsEaten',
+            populate: {
+                path: 'foodRef',
+                model: 'FoodItem'
+            }
+        }).exec(function (err, doc) {
+            let currMealItems = doc.itemsEaten.filter(item => item.meal === req.params.currentMeal)
+            console.log(currMealItems)
+            res.json(currMealItems)
+        })
     }
+
+
+
+
+    // if (currBucketArr.length > 0) {
+    //     let currMealItems = currBucketArr[0].itemsEaten.filter( item =>  item.meal === req.params.currentMeal)
+    //     res.json(currMealItems)
+    // }
 }
 
-
 async function updateBucket(req, res) {
-    let currBucket = await FoodBucket.findOne(({ user: req.user._id, date: req.params.tempDate}))
+    let currBucket = await FoodBucket.findOne(({ user: req.user._id, date: req.params.tempDate }))
     res.json(currBucket)
 }
 
 async function deleteBucketItem(req, res) {
-    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currBucketDate}).exec();
+    let currBucket = await FoodBucket.findOne({ user: req.user._id, id: req.params.currBucketId, date: req.params.currBucketDate }).exec();
     await currBucket.deleteItemFromBucket(req.params.currentMeal, req.params.idx)
     res.json(currBucket)
 }
-
 
 async function getBucketNutrients(req, res) {
     let nutrientObj = {}
 
     FoodBucket.findOne({ user: req.user._id, date: req.params.currDate }).populate({
-                    path: 'itemsEaten',
-                    populate: {
-                        path: 'foodRef',
-                        model: 'FoodItem'
-                    }
-                }).exec(function(err, doc) {
-                    doc.itemsEaten.forEach( item => {
-                        item.foodRef.nutrientArr.forEach(nutrient => {
-                            !nutrientObj[nutrient.nutrientName] ? nutrientObj[nutrient.nutrientName] = {'value': nutrient.value, 'units': nutrient.units} : nutrientObj[nutrient.nutrientName].value += nutrient.value
-                        })
-                    })
-                    res.json(nutrientObj)
-                })
-    
-    
+        path: 'itemsEaten',
+        populate: {
+            path: 'foodRef',
+            model: 'FoodItem'
+        }
+    }).exec(function (err, doc) {
+        doc.itemsEaten.forEach(item => {
+            item.foodRef.nutrientArr.forEach(nutrient => {
+                !nutrientObj[nutrient.nutrientName] ? nutrientObj[nutrient.nutrientName] = { 'value': nutrient.value, 'units': nutrient.units } : nutrientObj[nutrient.nutrientName].value += nutrient.value
+            })
+        })
+        res.json(nutrientObj)
+    })
 }
 
 

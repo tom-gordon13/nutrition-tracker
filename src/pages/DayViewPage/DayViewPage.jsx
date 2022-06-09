@@ -92,7 +92,7 @@ export default function DayViewPage() {
         async function updateBucketDisplay() {
             let newCurrBucket = await foodBucketsAPI.getCurrBucket(currDate);
             let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, newCurrBucket.date);
-            
+            console.log(currMealItems)
             setDisplayBucketItems(currMealItems)
             
         }

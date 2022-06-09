@@ -2,13 +2,16 @@ import { useState, useEffect } from "react"
 import { useDrag } from 'react-dnd'
 import './FoodSearchDisplay.css'
 
-export default function FoodSearchDisplay({ food }) {
+export default function FoodSearchDisplay({ food, searchResults, setSearchResults }) {
     let newFood = {
         itemName: food.description, 
         fdcId: food.fdcId,
-        category: food.category
+        category: food.category,
+        servingSize: food.servingSize,
+        brandName: food.brandName,
+        brandOwner: food.brandOwner,
     }
-    
+    console.log(newFood)
     const [{ isDragging }, dragRef] = useDrag({
         type: 'foodItem',
         item: newFood,
@@ -31,3 +34,4 @@ export default function FoodSearchDisplay({ food }) {
         </div>
     )
 }
+
