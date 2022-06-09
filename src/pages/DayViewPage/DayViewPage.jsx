@@ -92,7 +92,7 @@ export default function DayViewPage() {
         async function updateBucketDisplay() {
             let newCurrBucket = await foodBucketsAPI.getCurrBucket(currDate);
             let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, newCurrBucket.date);
-            console.log(currMealItems)
+            
             setDisplayBucketItems(currMealItems)
             
         }
@@ -163,7 +163,7 @@ export default function DayViewPage() {
                         
                         <div>
                             <button {... !searchResults ? {disabled} : {}} onClick={handleSearchToggle}>Prev</button>
-                            <button {... (searchResults === 12) ? {disabled} : {}} onClick={handleSearchToggle} >Next</button>
+                            <button {... (searchResults === 12 || displayFoods.length === 0) ? {disabled} : {}} onClick={handleSearchToggle} >Next</button>
                             {displayFoods.length > 0 ? <p>Displaying Results {searchResults+1} - {searchResults+3} of 15</p> : ''}
                         </div>
 
