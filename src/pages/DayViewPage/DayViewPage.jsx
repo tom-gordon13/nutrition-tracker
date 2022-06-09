@@ -14,7 +14,7 @@ import './DayViewPage.css'
 
 export default function DayViewPage() {
     let falseDate = new Date('2000-1-1')
-    
+    let disabled='disabled'
     let emptyBucket = {
         date: new Date('2000-1-1').toISOString().split('T')[0],
         // user: 
@@ -29,6 +29,7 @@ export default function DayViewPage() {
     const [bucketItems, setBucketItems] = useState([])
     const [displayBucketItems, setDisplayBucketItems] = useState([])
     const [currBucket, setCurrBucket] = useState(null)
+    const [searchResults, setSearchResults] = useState(0)
 
     async function handleNewFoodItem(foodItem) {
         
@@ -138,13 +139,20 @@ export default function DayViewPage() {
                             setFood={setFood}
                             setDisplayFoods={setDisplayFoods}
                             handleNewFoodItem={handleNewFoodItem}
+                            searchResults={searchResults}
+                            setSearchResults={setSearchResults}
                         />
 
                         {displayFoods ? displayFoods.map((food, idx) =>
-                            <FoodSearchDisplay food={food} key={idx} draggable />) : <h2>No Foods Selected</h2>}
+                            <FoodSearchDisplay 
+                            food={food} 
+                            key={idx}
+                            searchResults={searchResults}
+                            setSearchResults={setSearchResults}
+                            draggable />) : <h2>No Foods Selected</h2>}
                         
                         <div>
-                            <button>Prev</button>
+                            <button {... !searchResults ? {disabled} : {}}>Prev</button>
                             <button>Next</button>
                         </div>
 
