@@ -23,7 +23,7 @@ export default function FoodBucket({ currentMeal, setCurrentMeal, currBucket, cu
             <h1> <button onClick={handleDateChange}>&lt;</button> {currDate} <button onClick={handleDateChange} {... match ? {disabled} : {}}  > &gt;</button> </h1>
 
             <label className='mb-2'>
-                <strong className='h4'>Meal: </strong>
+                <h3 className='h4 m-2 d-flex flex-column'>Meal: </h3>
                 <select onChange={handleMealChange} className='h4 ml-4'>
                     <option value="Breakfast">Breakfast</option>
                     <option value="Lunch">Lunch</option>

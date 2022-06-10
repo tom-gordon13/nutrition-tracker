@@ -4,12 +4,12 @@
     align-items: center;
     box-sizing: border-box;
     height: 7vh;
-    width: 26vw;
+    width: 23vw;
 }
 
 .search-input {
     height: 5vh;
-    width: 100%;
+    width: 23vw;
     margin: 10px;
     
 }
