@@ -120,10 +120,7 @@ let nutrientMatcher = {
 
 async function getBucketNutrients(req, res) {
     let nutrientObj =  JSON.parse(JSON.stringify(nutrientDefaultObj))
-    console.log('DEFAULT')
-    console.log(nutrientDefaultObj)
-    console.log('-------')
-    console.log(nutrientObj)
+    
     FoodBucket.findOne({ user: req.user._id, date: req.params.currDate }).populate({
         path: 'itemsEaten',
         populate: {
