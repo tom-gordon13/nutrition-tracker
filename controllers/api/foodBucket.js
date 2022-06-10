@@ -67,14 +67,6 @@ async function getCurrMealItems(req, res) {
             res.json(currMealItems)
         })
     }
-
-
-
-
-    // if (currBucketArr.length > 0) {
-    //     let currMealItems = currBucketArr[0].itemsEaten.filter( item =>  item.meal === req.params.currentMeal)
-    //     res.json(currMealItems)
-    // }
 }
 
 async function updateBucket(req, res) {
@@ -89,7 +81,7 @@ async function deleteBucketItem(req, res) {
 }
 
 
-let nutrientDefaultObj = {
+const nutrientDefaultObj = {
     'Carbohydrates': { value: 0, units: 'G' },
     'Protein': { value: 0, units: 'G' },
     'Total Fat': { value: 0, units: 'G' },
@@ -127,8 +119,11 @@ let nutrientMatcher = {
 
 
 async function getBucketNutrients(req, res) {
-    let nutrientObj =  nutrientDefaultObj
-    
+    let nutrientObj =  JSON.parse(JSON.stringify(nutrientDefaultObj))
+    console.log('DEFAULT')
+    console.log(nutrientDefaultObj)
+    console.log('-------')
+    console.log(nutrientObj)
     FoodBucket.findOne({ user: req.user._id, date: req.params.currDate }).populate({
         path: 'itemsEaten',
         populate: {
@@ -138,6 +133,7 @@ async function getBucketNutrients(req, res) {
     }).exec(function (err, doc) {
         doc.itemsEaten.forEach(item => {
             item.foodRef.nutrientArr.forEach(nutrient => {
+                
                 !nutrientObj[nutrientMatcher[nutrient.nutrientName]] ? nutrientObj[nutrientMatcher[nutrient.nutrientName]] = { 'value': nutrient.value, 'units': nutrient.units } : nutrientObj[nutrientMatcher[nutrient.nutrientName]].value += nutrient.value
             })
         })

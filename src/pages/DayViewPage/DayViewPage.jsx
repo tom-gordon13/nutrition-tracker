@@ -14,11 +14,7 @@ import './DayViewPage.css'
 
 export default function DayViewPage() {
     let disabled='disabled'
-    let emptyBucket = {
-        date: new Date('2000-1-1').toISOString().split('T')[0],
-        // user: 
-        itemsEaten: []
-    }
+    
 
 
     const [food, setFood] = useState({})

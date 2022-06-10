@@ -17,7 +17,7 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                 let newNutrients = await foodBucketAPI.getBucketNutrients(currBucket._id, currDate)
 
                 let obj = (new Object(newNutrients))
-
+                console.log(newNutrients)
                 setBucketNutrients(newNutrients)
                 
             } else {
@@ -34,14 +34,14 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                 <h5>{currDate}</h5>
 
                 <table className='nutrient-table'>
-                    <thead className=''>
+                    <thead className='border-bottom'>
                         <tr className='d-flex justify-content-start w-100'>
                             <th className='d-flex justify-content-start nutrient-col'>Nutrient</th>
                             <th className='d-flex justify-content-end volume-col'>Volume</th>
                             <th className='d-flex justify-content-end perc-col'>% of RDI</th>
                         </tr>
                     </thead>
-                    <hr />
+                    
                     <tbody>
                         {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr ><td> <h3 className='mt-5'>No Items Logged</h3> </td></tr>}
                     </tbody>
@@ -51,26 +51,3 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
     )
 }
 
-
-
-
-
-
-
-
-
-
-// Protein: { value: 20.119999999999997, units: 'G' }
-// Total lipid(fat): { value: 13.3, units: 'G' }
-// Fatty acids, total saturated: { value: 5.32, units: 'G' }
-// Fatty acids, total trans: { value: 0, units: 'G' }
-// Sodium, Na: { value: 916, units: 'MG' }
-// Sugars, total including NLEA: { value: 18.87, units: 'G' }
-// Iron, Fe: { value: 8.530000000000001, units: 'MG' }
-// Calcium, Ca: { value: 157, units: 'MG' }
-// Fiber, total dietary: { value: 6.6, units: 'G' }
-// Potassium, K: { value: 447, units: 'MG' }
-// Vitamin A, IU: { value: 15500, units: 'IU' }
-// Vitamin B - 6: { value: 0.265, units: 'MG' }
-// Vitamin C, total ascorbic acid: { value: 123.4, units: 'MG' }
-// Vitamin K(phylloquinone): { value: 828, units: 'UG' }
