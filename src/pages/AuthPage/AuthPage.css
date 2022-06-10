@@ -1,12 +1,17 @@
+main {
+    background-image: './veggies_2.jpg';
+}
+
 .leftLogo {
     color: var(--green);
     display: inline;
 }
 
-.navBar-right {
+.authHeader-right {
     
-    align-self: center;
-    margin-right: 0;
+    align-self: end;
+    margin-right: 5%;
+    margin-top: 2%;
     margin-left: auto;
     font-size: x-large;
     
@@ -14,7 +19,7 @@
 
 .navBar-link {
     color: var(--green);
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding: 8px;
 }
 
@@ -23,14 +28,7 @@
 }
 
 .navBar-total {
-    border-bottom: 1px solid var(--green);
     margin-bottom: 20px;
-}
-
-.main-icon {
-    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
-    height: 10%;
-    display: inline;
 }
 
 .center-container {

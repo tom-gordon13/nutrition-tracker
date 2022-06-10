@@ -7,16 +7,23 @@ export default function NavBar() {
 
 
     return (
-        <nav className="navBar-total">
-            
+        <div className="row">
 
-                <span className="leftLogo display-3">SuperFood</span>
+            <div className="col-2"></div>
 
-                <div className='navBar-right'>
+            <div className="col d-flex justify-content-end">
+                <nav className="authHeader-right">
 
 
-                </div>
-              
-        </nav>
+
+                    
+                        <span className="leftLogo display-2">SuperFood</span>
+
+
+                  
+
+                </nav>
+            </div>
+        </div>
     )
 }
