@@ -79,9 +79,11 @@ code {
 
 .form-container {
   padding: 3vmin;
-  background-color: var(--tan-1);
-  border: .1vmin solid var(--tan-3);
+  /* background-color: var(--tan-1); */
+  /* border: .1vmin solid var(--tan-3); */
   border-radius: 1vmin;
+  height: 50%;
+  width: 100%;
 }
 
 p.error-message {
