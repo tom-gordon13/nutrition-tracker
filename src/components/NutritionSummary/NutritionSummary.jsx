@@ -7,8 +7,6 @@ import * as foodBucketAPI from '../../utilities/foodBuckets-api'
 export default function NutritionSummary({ currDate, currBucket, displayBucketItems, bucketItems }) {
     const [bucketNutrients, setBucketNutrients] = useState(null)
 
-    
-
     useEffect(function () {
         async function getBucketNutrients() {
             
@@ -41,7 +39,6 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                             
                         </tr>
                     </thead>
-                    
                     <tbody>
                         {(bucketNutrients !== null) ? Object.entries(bucketNutrients).map(([key, value], index) => <NutrientCard key={index} nutrient={key} amount={value.value} units={value.units} />) : <tr ><td> <h3 className='mt-5'>No Items Logged</h3> </td></tr>}
                     </tbody>
