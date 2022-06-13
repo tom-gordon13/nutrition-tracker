@@ -10,12 +10,13 @@
 
 .nutrient-col {
     width: 60%;
+    margin-left: 5%;
 }
 
 .volume-col {
-    width: 15%
+    width: 30%
 }
 
-.perc-col {
+/* .perc-col {
     width: 25%
-}
+} */

@@ -14,7 +14,7 @@ export default class SignUpForm extends Component {
 
 
   handleButtonClick = (evt) => {
-    
+
     this.props.setFormDisplay(evt.target.value)
   }
 
@@ -47,7 +47,7 @@ export default class SignUpForm extends Component {
     const disable = this.state.password !== this.state.confirm;
     return (
       <div className='d-flex flex-column'>
-        <div className="form-container d-flex flex-column">
+        <div className="form-container d-flex flex-column mb-5">
           <form autoComplete="off" onSubmit={this.handleSubmit}>
             <span></span><h1 className='w-100 form-title'>Sign Up</h1>
             <label>Name</label>
@@ -62,8 +62,11 @@ export default class SignUpForm extends Component {
           </form>
           <label className="error-message mt-5">&nbsp;{this.state.error}</label>
         </div>
-        <h5>Already have an account?</h5>
-        <button className='w-100 d-inline' value='Login' onClick={this.handleButtonClick}>Login</button>
+        <div className="bottom-signup">
+          <hr />
+          <h5>Already have an account?</h5>
+          <button className='w-100 d-inline' value='Login' onClick={this.handleButtonClick}>Login</button>
+        </div>
       </div>
     );
   }

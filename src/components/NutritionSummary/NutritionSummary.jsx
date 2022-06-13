@@ -4,20 +4,20 @@ import NutrientCard from './NutrientCard'
 import * as foodBucketAPI from '../../utilities/foodBuckets-api'
 
 
-export default function NutritionSummary({ currDate, currBucket, displayBucketItems }) {
+export default function NutritionSummary({ currDate, currBucket, displayBucketItems, bucketItems }) {
     const [bucketNutrients, setBucketNutrients] = useState(null)
 
     
 
     useEffect(function () {
         async function getBucketNutrients() {
-
-            if (currBucket && currBucket.itemsEaten.length > 0) {
+            console.log(currBucket)
+            if (currBucket) {
 
                 let newNutrients = await foodBucketAPI.getBucketNutrients(currBucket._id, currDate)
 
                 let obj = (new Object(newNutrients))
-                console.log(newNutrients)
+                
                 setBucketNutrients(newNutrients)
                 
             } else {
@@ -25,7 +25,7 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
             }
         }
         getBucketNutrients()
-    }, [currBucket, displayBucketItems, currDate])
+    }, [currBucket, displayBucketItems, currDate, bucketItems])
 
     return (
         <div className='card nutrient-card'>
@@ -38,7 +38,7 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
                         <tr className='d-flex justify-content-start w-100'>
                             <th className='d-flex justify-content-start nutrient-col'>Nutrient</th>
                             <th className='d-flex justify-content-end volume-col'>Volume</th>
-                            <th className='d-flex justify-content-end perc-col'>% of RDI</th>
+                            
                         </tr>
                     </thead>
                     

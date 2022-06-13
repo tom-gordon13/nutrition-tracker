@@ -23,7 +23,7 @@ export default function NavBar({ user, setUser }) {
             <span className="leftLogo display-3">SuperFood</span>
 
             <div className='navBar-right'>
-                <Link 
+                {/* <Link 
                 to="/" 
                 className={`text-decoration-none navBar-link ${selectedPage === 'Daily View' ? "selectedPage" : ""}`} 
                 value='Daily View'
@@ -37,9 +37,9 @@ export default function NavBar({ user, setUser }) {
                 onClick={handleLinkClick}
                 >Daily View Two</Link>
                 &nbsp;&nbsp;
-                
-                {/* <span>Hi {user.name}</span>
-            &nbsp;&nbsp; */}
+                 */}
+                <span className='name-display'>Hi {user.name}</span>
+            &nbsp;&nbsp; | &nbsp;&nbsp;
                 <Link to="" onClick={handleLogOut} className='text-decoration-none'>Log Out</Link>
             </div>
         </nav>

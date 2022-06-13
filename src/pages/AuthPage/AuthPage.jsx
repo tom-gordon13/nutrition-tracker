@@ -54,7 +54,7 @@ export default function AuthPage({ setUser }) {
                             </div>
 
                             <div className={`auth-3 ${formDisplay==='Login' ? '' : 'd-none'}`}>
-                                <LoginForm setUser={setUser} />
+                                <LoginForm setUser={setUser} formDisplay={formDisplay} setFormDisplay={setFormDisplay}/>
                             </div>
                             
 

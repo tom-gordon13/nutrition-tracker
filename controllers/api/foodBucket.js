@@ -128,14 +128,17 @@ async function getBucketNutrients(req, res) {
             model: 'FoodItem'
         }
     }).exec(function (err, doc) {
-        doc.itemsEaten.forEach(item => {
-            item.foodRef.nutrientArr.forEach(nutrient => {
-                
-                !nutrientObj[nutrientMatcher[nutrient.nutrientName]] ? nutrientObj[nutrientMatcher[nutrient.nutrientName]] = { 'value': nutrient.value, 'units': nutrient.units } : nutrientObj[nutrientMatcher[nutrient.nutrientName]].value += nutrient.value
+        if (doc === null) res.json(JSON.parse(JSON.stringify(nutrientDefaultObj)))
+        if (doc !== null) {
+            doc.itemsEaten.forEach(item => {
+                item.foodRef.nutrientArr.forEach(nutrient => {
+                    
+                    !nutrientObj[nutrientMatcher[nutrient.nutrientName]] ? nutrientObj[nutrientMatcher[nutrient.nutrientName]] = { 'value': nutrient.value, 'units': nutrient.units } : nutrientObj[nutrientMatcher[nutrient.nutrientName]].value += nutrient.value
+                })
             })
-        })
-        delete nutrientObj['undefined']
-        res.json(nutrientObj)
+            delete nutrientObj['undefined']
+            res.json(nutrientObj)
+        }
     })
 }
 

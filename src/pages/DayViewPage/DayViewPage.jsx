@@ -60,6 +60,7 @@ export default function DayViewPage() {
     
     async function changeDate(direction) {
         let tempDate;
+        let newCurrBucket;
         if (direction === '<') {
             tempDate = new Date(currDate)
             tempDate.setDate(tempDate.getDate()-1)
@@ -78,8 +79,16 @@ export default function DayViewPage() {
             let newCurrBucket = await foodBucketsAPI.getCurrBucket(tempDate);
             setCurrBucket(newCurrBucket)
         }
-        if (currBucket) getCurrBucket(tempDate)
 
+        if (currBucket) getCurrBucket(tempDate)
+        async function createFoodBucket() {
+            if (newCurrBucket === null) {
+                
+                let bucket = await foodBucketsAPI.createFoodBucket(currDate);
+                setCurrBucket(bucket);
+            }
+        }
+        createFoodBucket()
     }
     
 
@@ -138,8 +147,6 @@ export default function DayViewPage() {
 
 
     return (
-            // <div className="row">
-
                 <div className="row d-flex justify-content-center w-100">
                     {/* LEFTHAND PANEL - FOOD SEARCH & FOOD SEARCH DISPLAY & DISHES DISPLAY*/}
                     <div className="col-2 lefthand-panel">
@@ -149,8 +156,6 @@ export default function DayViewPage() {
                             setDisplayFoods={setDisplayFoods}
                             handleNewFoodItem={handleNewFoodItem}
                             searchResults={searchResults}
-                            // setSearchResults={setSearchResults}
-                            // handleSetSearchResults={handleSetSearchResults}
                         />
 
                         {displayFoods ? displayFoods.slice(searchResults, parseInt(searchResults)+3).map((food, idx) =>
@@ -167,9 +172,6 @@ export default function DayViewPage() {
                             {displayFoods.length > 0 ? <p>Displaying Results {searchResults+1} - {searchResults+3} of 15</p> : ''}
                         </div>
 
-                        <hr />
-                        
-                        <DishDisplay />
                     </div>
 
                     {/* MIDDLE PANEL - FOOD BUCKET & CURRENT SELECTED MEAL */}
@@ -185,10 +187,10 @@ export default function DayViewPage() {
 
                     {/* RIGHTHAND PANEL - DAILY NUTRITION SUMMARY */}
                     <div className="col-3 right-panel">
-                        <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems}/>
+                        <NutritionSummary currDate={currDate} currBucket={currBucket} displayBucketItems={displayBucketItems} bucketItems={bucketItems}/>
                     </div>
                 </div>
-            // </div>
+            
         
     )
 }
