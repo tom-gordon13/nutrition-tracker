@@ -120,12 +120,9 @@ export default function DayViewPage() {
 
     async function deleteBucketItem(idx) {
         let updatedBucketRaw = await foodBucketsAPI.deleteBucketItem(currBucket._id, currentMeal, idx, currBucket.date);
-        // let updatedBucketItems = updatedBucketRaw.itemsEaten.filter(item => item.meal === currentMeal)
 
         let currMealItems = await foodBucketsAPI.getCurrMealItems(currentMeal, updatedBucketRaw.date);
         setDisplayBucketItems(currMealItems)
-
-        // setDisplayBucketItems(updatedBucketItems)
     }
 
     const [{ isOver }, dropRef] = useDrop({
@@ -178,9 +175,13 @@ export default function DayViewPage() {
                     <div className="col-2 d-flex justify-content-center flex-wrap center-panel">
                         
                         <FoodBucketHeader currentMeal={currentMeal} setCurrentMeal={setCurrentMeal} currBucket={currBucket} currDate={currDate} changeDate={changeDate}/>
-                        <div className='foodBucket border border-dark overflow-auto h50 w-75' ref={dropRef}>
+                        <div className='foodBucket border border-dark overflow-auto h50 w-75 shadow p-3 mb-5 bg-white rounded' ref={dropRef}>
                             {displayBucketItems.map((item, idx) =>
-                                <FoodBucketLineItem item={item} key={idx} idx={idx} deleteBucketItem={deleteBucketItem} />)}
+                                <FoodBucketLineItem 
+                                item={item} 
+                                key={idx} 
+                                idx={idx} 
+                                deleteBucketItem={deleteBucketItem} />)}
                             {isOver && <div>drop here!</div>}    
                         </div>
                     </div>

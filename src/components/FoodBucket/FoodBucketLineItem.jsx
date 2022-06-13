@@ -1,3 +1,5 @@
+import './FoodBucket.css'
+
 export default function FoodBucketLineItem({ item, idx, deleteBucketItem }) {
     function handleDeleteItem() {
         deleteBucketItem(idx)
@@ -7,7 +9,7 @@ export default function FoodBucketLineItem({ item, idx, deleteBucketItem }) {
 
     return (
 
-        <div className="border border-dark d-flex row">
+        <div className="border border-dark d-flex row food-card">
             <div className="col justify-self-start d-flex justify-content-start flex-column align-items-start gap-0">
                 <h5 className='mb-0'><b>Food:</b> {item.itemName}</h5>
                 <span><b>Category:</b> {item.foodRef.category}</span>
@@ -18,7 +20,6 @@ export default function FoodBucketLineItem({ item, idx, deleteBucketItem }) {
             </div>
             <div className="col-2 d-flex align-items-center">
                 <img src="trash-can-solid" alt="" />
-                {/* <button className='bg-danger' onClick={handleDeleteItem}>Delete Item</button> */}
                 <button className='del-btn bg-danger' onClick={handleDeleteItem}><img src="trash-can-solid.svg" alt="" className='bg-danger'/></button>
             </div>
         </div>

@@ -11,7 +11,7 @@ export default function NutritionSummary({ currDate, currBucket, displayBucketIt
 
     useEffect(function () {
         async function getBucketNutrients() {
-            console.log(currBucket)
+            
             if (currBucket) {
 
                 let newNutrients = await foodBucketAPI.getBucketNutrients(currBucket._id, currDate)

@@ -17,3 +17,7 @@
     /* justify-self: end; */
     margin-right: 0;
 }
+
+.foodBucket:nth-child(even)  {
+    border: 1px solid red;
+}

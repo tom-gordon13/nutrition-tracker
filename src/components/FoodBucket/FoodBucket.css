@@ -1,7 +1,6 @@
 .foodBucket {
     height: 70vh;
     width: 30vw;
-    
 }
 
 span {
@@ -12,3 +11,9 @@ span {
     height: 6vmin;
     width: 6vmin;
 }
+
+.food-card:nth-of-type(even) {
+    background-color: rgb(223, 223, 223);
+}
+
+
