@@ -167,6 +167,7 @@ export default function DayViewPage() {
                             <button {... !searchResults ? {disabled} : {}} onClick={handleSearchToggle}>Prev</button>
                             <button {... (searchResults === 12 || displayFoods.length === 0) ? {disabled} : {}} onClick={handleSearchToggle} >Next</button>
                             {displayFoods.length > 0 ? <p>Displaying Results {searchResults+1} - {searchResults+3} of 15</p> : ''}
+                            {displayFoods.length > 0 ? <h6>Once you find the item you ate, drag it to the box in the center!</h6> : ''}
                         </div>
 
                     </div>

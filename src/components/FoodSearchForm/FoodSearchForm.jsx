@@ -10,26 +10,23 @@ export default function FoodSearchForm({ setFood, setDisplayFoods, handleNewFood
     // const [searchResults, setSearchResults] = useState(0)
 
     async function handleCheck(evt) {
-        let newBranded = brandedFilter
-        let newGeneric = genericFilter
-
-        if (brandedFilter !== genericFilter) {
+        let newBranded = brandedFilter;
+        let newGeneric = genericFilter;
+        
+        if (evt.target.value === 'branded') {
             newBranded = !brandedFilter
-            newGeneric = !genericFilter
+            newGeneric === true ? newGeneric = !newGeneric : newGeneric = newGeneric
         }
 
-        evt.target.value === 'branded' ? newBranded = !brandedFilter : newGeneric = !genericFilter
+        if (evt.target.value === 'generic') {
+            newGeneric = !genericFilter
+            newBranded === true ? newBranded = !newBranded : newBranded = newBranded
+        }
 
         setBrandedFilter(newBranded)
         setGenericFilter(newGeneric)
     }
 
-
-    // async function handleSetSearchResults(results) {
-    //     let move = handleSearchToggle(evt)
-    //     let displayArr = results.slice(move, move + 3)
-    //     setDisplayFoods(displayArr)
-    // }
 
     async function handleSearchToggle(evt) {
         let move = 0;

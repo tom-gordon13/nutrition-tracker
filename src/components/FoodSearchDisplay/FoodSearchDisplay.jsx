@@ -28,7 +28,7 @@ export default function FoodSearchDisplay({ food, searchResults, setSearchResult
                 { food.brandOwner ? <p className='m-0'>Brand: {food.brandOwner} {food.brandName ? `(${food.brandName})` : ''} </p> : ''}
           
         
-                {isDragging && '😱'}
+                {isDragging && 'YUM! 🍽️'}
                 
             </div>
         </div>
